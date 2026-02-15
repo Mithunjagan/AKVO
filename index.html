@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akvo Atmospheric Water Systems | De-commodifying Water</title>
+    <meta name="description" content="Akvo Atmospheric Water Systems - The world's most advanced atmospheric water generation ecosystem. Pure water from thin air.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Manrope', 'sans-serif'], 
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        akvo: {
+                            deep: '#020617', 
+                            blue: '#0088cc', 
+                            cyan: '#00c6fb', 
+                            green: '#4ade80',
+                            surface: 'rgba(15, 23, 42, 0.6)',
+                            highlight: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'shimmer': 'shimmer 2.5s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-1000px 0' },
+                            '100%': { backgroundPosition: '1000px 0' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* ── LIQUID GLASS THEME ENGINE ──────────────── */
+        :root {
+            --bg-dark: #020617;
+            --primary: #0088cc;
+            --accent: #00c6fb;
+            --glass-surface: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-highlight: rgba(255, 255, 255, 0.15);
+            --text-main: #f8fafc;
+            --easing: cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            font-family: 'Manrope', sans-serif;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* ── LIQUID BACKGROUND ────────────────────── */
+        .ambient-light {
+            position: fixed; 
+            inset: 0; 
+            z-index: -1; 
+            pointer-events: none;
+            background: radial-gradient(circle at 50% 50%, #050b1d, #020617);
+            overflow: hidden;
+        }
+        
+        .blob {
+            position: absolute; 
+            border-radius: 50%;
+            filter: blur(100px); 
+            opacity: 0.5;
+            animation: moveBlobs 25s infinite alternate var(--easing);
+            mix-blend-mode: screen;
+        }
+
+        .blob-1 { top: -20%; left: -10%; width: 60vw; height: 60vw; background: #0088cc; animation-duration: 35s; }
+        .blob-2 { bottom: -20%; right: -10%; width: 70vw; height: 70vw; background: #004e92; animation-duration: 45s; animation-direction: alternate-reverse; }
+        .blob-3 { top: 40%; left: 30%; width: 40vw; height: 40vw; background: #00c6fb; opacity: 0.15; animation-duration: 40s; }
+
+        @keyframes moveBlobs {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            100% { transform: translate(10%, 10%) scale(1.1) rotate(20deg); }
+        }
+
+        /* ── LIQUID GLASS PANELS ───────────────────── */
+        .glass-panel {
+            background: var(--glass-surface);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-top: 1px solid var(--glass-highlight); /* Top light reflection */
+            box-shadow: 
+                0 4px 30px rgba(0, 0, 0, 0.2),
+                inset 0 0 20px rgba(255, 255, 255, 0.02); /* Inner volume */
+            border-radius: 24px;
+            transition: all 0.4s var(--easing);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-panel:hover {
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 50px rgba(0, 198, 251, 0.1), /* Glow */
+                inset 0 0 20px rgba(255, 255, 255, 0.05);
+            transform: translateY(-5px);
+            border-color: rgba(0, 198, 251, 0.3);
+        }
+        
+        /* Noise overlay for texture */
+        .glass-panel::before {
+            content: ""; 
+            position: absolute; 
+            inset: 0; 
+            opacity: 0.03; 
+            z-index: -1;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        /* ── TYPOGRAPHY FX ────────────────────────────── */
+        .text-glow { 
+            text-shadow: 0 0 30px rgba(0, 198, 251, 0.6); 
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #fff 40%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ── INTERACTIVE ELEMENTS ─────────────────────── */
+        .btn-liquid {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 136, 204, 0.3);
+        }
+        
+        .btn-liquid:hover {
+            box-shadow: 0 0 40px rgba(0, 198, 251, 0.6);
+            transform: scale(1.05);
+        }
+
+        .btn-liquid::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn-liquid:hover::after {
+            left: 100%;
+        }
+
+        /* Custom Select Inputs */
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300c6fb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.2em;
+        }
+        
+        select option {
+            background-color: #020617; 
+            color: #ffffff;
+            padding: 12px;
+        }
+
+        /* Tech Table */
+        .tech-table tr { transition: background-color 0.2s; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .tech-table tr:hover { background-color: rgba(0, 198, 251, 0.05); }
+        .tech-table td, .tech-table th { padding: 1.25rem; }
+        .tech-table tr:last-child { border-bottom: none; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+    </style>
+</head>
+<body class="antialiased selection:bg-akvo-cyan selection:text-black">
+
+    <!-- LIQUID BACKGROUND BLOBS -->
+    <div class="ambient-light">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-6 px-4 pointer-events-none transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex justify-between items-center pointer-events-auto">
+            <!-- Logo -->
+            <div class="glass-panel p-1 pr-6 rounded-full flex items-center gap-4 cursor-pointer group hover:bg-white/5 transition-all duration-500 hover:border-akvo-cyan/30 hover:shadow-[0_0_30px_rgba(0,198,251,0.15)]" onclick="window.scrollTo(0,0)">
+                <!-- Backlit Logo Container -->
+                <div class="bg-white rounded-full h-10 px-3 py-1 flex items-center justify-center shadow-[0_0_15px_rgba(255,255,255,0.1)] group-hover:shadow-[0_0_20px_rgba(0,198,251,0.3)] transition-all duration-500 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-slate-100 to-white opacity-100"></div>
+                    <img src="C:\Users\mith1\OneDrive\Desktop\AKVO\Gemini_Generated_Image_i5lad6i5la.png" alt="Akvo logo: stylized water droplet with flowing curves in white gradient, representing atmospheric water generation technology" class="site-logo">
+                </div>
+                <!-- Brand Text -->
+                <span class="font-display font-bold text-lg text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-400 group-hover:to-akvo-cyan transition-all duration-500 tracking-wide">AKVO<span class="font-light text-slate-400 group-hover:text-akvo-cyan transition-colors">SPHERE</span></span>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex glass-panel rounded-full px-2 py-2 items-center gap-1 backdrop-blur-3xl">
+                <a href="#technology" class="px-5 py-2 rounded-full text-slate-300 hover:text-white hover:bg-white/10 font-medium transition-all text-sm">Technology</a>
+                <a href="#calculator" class="px-5 py-2 rounded-full text-slate-300 hover:text-white hover:bg-white/10 font-medium transition-all text-sm">Yield Calc</a>
+                <a href="#products" class="px-5 py-2 rounded-full text-slate-300 hover:text-white hover:bg-white/10 font-medium transition-all text-sm">Products</a>
+                <a href="#wow-model" class="px-5 py-2 rounded-full text-slate-300 hover:text-white hover:bg-white/10 font-medium transition-all text-sm">WoW Model</a>
+                <a href="#impact" class="px-5 py-2 rounded-full text-slate-300 hover:text-white hover:bg-white/10 font-medium transition-all text-sm">Impact</a>
+                <a href="#contact" class="px-6 py-2 rounded-full bg-white/10 text-white font-semibold hover:bg-akvo-cyan hover:text-black transition-all border border-white/20 text-sm ml-2">Contact</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden glass-panel p-3 rounded-full text-white cursor-pointer hover:text-akvo-cyan">
+                <i data-lucide="menu" class="h-6 w-6"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Background Video -->
+    <header class="relative pt-32 pb-20 md:pt-48 md:pb-32 min-h-screen flex items-center overflow-hidden">
+        
+        <!-- VIDEO BACKGROUND -->
+        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay z-0 pointer-events-none filter blur-[2px]">
+            <source src="https://akvosphere.com/wp-content/uploads/2025/07/akvo-home.mp4" type="video/mp4">
+        </video>
+        
+        <!-- Gradient Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-b from-akvo-deep/30 via-transparent to-akvo-deep z-0"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-center">
+            
+            <!-- Badge -->
+            <div class="inline-flex items-center px-5 py-2 rounded-full glass-panel border border-akvo-cyan/30 text-akvo-cyan mb-8 animate-float shadow-[0_0_30px_rgba(0,198,251,0.2)]">
+                <span class="w-2 h-2 rounded-full bg-akvo-cyan mr-3 animate-pulse"></span>
+                <span class="text-xs font-bold tracking-[0.2em] uppercase">Water Independence 2.0</span>
+            </div>
+
+            <!-- Headline -->
+            <h1 class="text-6xl md:text-8xl lg:text-9xl font-extrabold text-white leading-[0.9] mb-8 drop-shadow-2xl font-display tracking-tight">
+                De-Commodify <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-akvo-cyan to-akvo-blue text-glow">The Future.</span>
+            </h1>
+
+            <!-- Subhead -->
+            <p class="text-lg md:text-2xl text-slate-300 mb-12 font-light leading-relaxed max-w-3xl mx-auto">
+                Stop buying water. Start generating it. We extract pure, mineralized drinking water directly from the atmosphere—an infinitely renewable reservoir.
+            </p>
+
+            <!-- Buttons -->
+            <div class="flex flex-col sm:flex-row justify-center gap-6">
+                <a href="#products" class="btn-liquid px-10 py-5 rounded-2xl text-white font-bold text-lg flex items-center justify-center gap-3 uppercase tracking-wide">
+                    View Solutions 
+                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </a>
+                <a href="#wow-model" class="px-10 py-5 rounded-2xl glass-panel text-white font-bold text-lg flex items-center justify-center hover:bg-white/10 transition-colors uppercase tracking-wide border border-white/20">
+                    The WoW Model
+                </a>
+            </div>
+
+            <!-- Trusted By Ticker (Psychology: Social Proof) -->
+            <div class="mt-20 pt-8 border-t border-white/5 max-w-5xl mx-auto">
+                <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-6">Trusted by Industry Leaders</p>
+                <div class="flex flex-wrap justify-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                    <!-- Text logos for simplicity, could be SVGs -->
+                    <span class="text-xl font-display font-bold text-white">IOCL</span>
+                    <span class="text-xl font-display font-bold text-white">TATA Steel</span>
+                    <span class="text-xl font-display font-bold text-white">Indian Railways</span>
+                    <span class="text-xl font-display font-bold text-white">DP World</span>
+                    <span class="text-xl font-display font-bold text-white">Phillips</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section class="py-24 relative" id="about">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-panel p-10 md:p-20 border border-white/5 relative overflow-hidden">
+                <!-- Background decorative flare -->
+                <div class="absolute -top-40 -right-40 w-96 h-96 bg-akvo-blue rounded-full blur-[150px] opacity-20"></div>
+
+                <div class="flex flex-col lg:flex-row gap-20 items-center relative z-10">
+                    <div class="lg:w-1/2">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="h-px w-12 bg-akvo-cyan"></div>
+                            <h2 class="text-sm font-bold text-akvo-cyan uppercase tracking-widest">Our Genesis</h2>
+                        </div>
+                        <h3 class="text-4xl md:text-6xl font-bold text-white mb-8 leading-tight font-display">Bootstrapped for <br><span class="text-gradient">Absolute Purity.</span></h3>
+                        <div class="prose prose-lg text-slate-300 leading-relaxed font-light">
+                            <p class="mb-6">
+                                Founded in 2018 in Kolkata by <strong>Navkaran Singh Bagga</strong>, Akvo operates on a singular philosophy: clean drinking water is a fundamental human right, not a luxury commodity.
+                            </p>
+                            <p class="mb-6">
+                                Unlike startups beholden to Venture Capital, Akvo remains 100% bootstrapped. This financial autonomy allows us to prioritize long-term sustainability over quarterly profits. We have scaled from a concept to a global player with deployments in 15 countries.
+                            </p>
+                        </div>
+                        
+                        <!-- Floating Stats -->
+                        <div class="grid grid-cols-3 gap-4 mt-12">
+                            <div class="glass-panel p-4 rounded-2xl text-center">
+                                <div class="text-3xl font-bold text-white font-display">2k+</div>
+                                <div class="text-[10px] uppercase tracking-wider text-slate-400 mt-1">Units Live</div>
+                            </div>
+                            <div class="glass-panel p-4 rounded-2xl text-center">
+                                <div class="text-3xl font-bold text-white font-display">15</div>
+                                <div class="text-[10px] uppercase tracking-wider text-slate-400 mt-1">Countries</div>
+                            </div>
+                            <div class="glass-panel p-4 rounded-2xl text-center">
+                                <div class="text-3xl font-bold text-akvo-green font-display">100M</div>
+                                <div class="text-[10px] uppercase tracking-wider text-slate-400 mt-1">Liters Made</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="lg:w-1/2 w-full">
+                        <div class="relative glass-panel bg-white/5 p-10 rounded-3xl border border-white/10 transform rotate-1 hover:rotate-0 transition-transform duration-500">
+                            <div class="absolute -top-6 -left-6 text-akvo-cyan opacity-20">
+                                <i data-lucide="quote" class="w-24 h-24"></i>
+                            </div>
+                            <blockquote class="relative z-10">
+                                <p class="text-2xl font-medium text-white italic leading-relaxed">
+                                    "We are environmentalists, magicians, scientists & tech geeks. We believe the atmosphere does not discriminate; it holds water for all of us."
+                                </p>
+                                <footer class="mt-8 flex items-center gap-4">
+                                    <div class="h-14 w-14 rounded-full bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center text-white font-bold text-xl shadow-lg border border-white/10 ring-2 ring-akvo-cyan/20">NB</div>
+                                    <div>
+                                        <p class="font-bold text-white text-lg font-display">Navkaran Singh Bagga</p>
+                                        <p class="text-sm text-akvo-cyan font-medium">Founder & CEO</p>
+                                    </div>
+                                </footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section (Process) -->
+    <section class="py-24 relative overflow-hidden" id="technology">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-24 max-w-3xl mx-auto">
+                <h2 class="text-akvo-cyan font-bold tracking-widest uppercase mb-4 text-glow">The Science</h2>
+                <h3 class="text-5xl md:text-7xl font-bold text-white font-display mb-6">From Air to Aqua</h3>
+                <p class="text-xl text-slate-400 font-light">
+                    We mimic the Earth's natural hydrological cycle within a compact, hyper-efficient system.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Step 1 -->
+                <div class="glass-panel p-8 rounded-3xl hover:bg-white/5 transition-all duration-300 group hover:-translate-y-2">
+                    <div class="flex justify-between items-start mb-8">
+                        <div class="w-14 h-14 bg-slate-800 rounded-2xl flex items-center justify-center text-akvo-cyan shadow-lg border border-white/5 group-hover:bg-akvo-cyan group-hover:text-black transition-colors">
+                            <i data-lucide="wind" class="w-7 h-7"></i>
+                        </div>
+                        <span class="text-4xl font-bold text-white/10 font-display">01</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3 font-display">Air Intake</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Ambient air is drawn through an antimicrobial air filtration matrix, capturing macroscopic dust and pollen.
+                    </p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="glass-panel p-8 rounded-3xl hover:bg-white/5 transition-all duration-300 group hover:-translate-y-2 delay-75">
+                    <div class="flex justify-between items-start mb-8">
+                        <div class="w-14 h-14 bg-slate-800 rounded-2xl flex items-center justify-center text-akvo-cyan shadow-lg border border-white/5 group-hover:bg-akvo-cyan group-hover:text-black transition-colors">
+                            <i data-lucide="cloud-rain" class="w-7 h-7"></i>
+                        </div>
+                        <span class="text-4xl font-bold text-white/10 font-display">02</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3 font-display">Condensation</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Air passes over coils chilled below the dew point. Vapor compression forces a phase transition from gas to liquid.
+                    </p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="glass-panel p-8 rounded-3xl hover:bg-white/5 transition-all duration-300 group hover:-translate-y-2 delay-100">
+                    <div class="flex justify-between items-start mb-8">
+                        <div class="w-14 h-14 bg-slate-800 rounded-2xl flex items-center justify-center text-akvo-cyan shadow-lg border border-white/5 group-hover:bg-akvo-cyan group-hover:text-black transition-colors">
+                            <i data-lucide="shield-check" class="w-7 h-7"></i>
+                        </div>
+                        <span class="text-4xl font-bold text-white/10 font-display">03</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3 font-display">Purification</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Water flows through sediment filters, activated carbon, UV sterilization, and Ozone treatment to neutralize pathogens.
+                    </p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="glass-panel p-8 rounded-3xl hover:bg-white/5 transition-all duration-300 group hover:-translate-y-2 delay-150">
+                    <div class="flex justify-between items-start mb-8">
+                        <div class="w-14 h-14 bg-slate-800 rounded-2xl flex items-center justify-center text-akvo-cyan shadow-lg border border-white/5 group-hover:bg-akvo-cyan group-hover:text-black transition-colors">
+                            <i data-lucide="sparkles" class="w-7 h-7"></i>
+                        </div>
+                        <span class="text-4xl font-bold text-white/10 font-display">04</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3 font-display">Mineralization</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        We reintroduce essential Calcium and Magnesium, balancing the pH to ~7.6 for fresh, alkaline drinking water.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Climate Specs (Data & Psychometrics) -->
+    <section class="py-24 relative" id="climate">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-panel rounded-[3rem] p-10 md:p-20 border border-white/10 relative overflow-hidden bg-gradient-to-br from-white/5 to-transparent">
+                <!-- Background Blur -->
+                <div class="absolute -right-40 -bottom-40 w-[600px] h-[600px] bg-akvo-cyan blur-[150px] opacity-10 rounded-full animate-pulse"></div>
+                
+                <div class="flex flex-col lg:flex-row gap-16 items-center">
+                    <div class="lg:w-5/12">
+                        <h2 class="text-4xl md:text-5xl font-bold text-white font-display mb-6">Engineered for <br><span class="text-gradient">Resilience.</span></h2>
+                        <p class="text-slate-300 text-lg mb-8 leading-relaxed font-light">
+                            Our systems function across a dynamic range of environmental parameters. High temperatures and humidity exponentially increase absolute humidity, maximizing yield.
+                        </p>
+                        <ul class="space-y-4">
+                            <li class="flex items-center gap-3 text-slate-300">
+                                <i data-lucide="check-circle" class="text-akvo-cyan w-5 h-5"></i>
+                                <span>Functions in coastal & arid zones</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-slate-300">
+                                <i data-lucide="check-circle" class="text-akvo-cyan w-5 h-5"></i>
+                                <span>Automated sleep mode at low dew point</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-slate-300">
+                                <i data-lucide="check-circle" class="text-akvo-cyan w-5 h-5"></i>
+                                <span>Industrial-grade compressors</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="lg:w-7/12 flex flex-col md:flex-row gap-6 w-full">
+                        <div class="flex-1 glass-panel p-8 rounded-3xl border border-akvo-cyan/30 bg-akvo-cyan/5 text-center relative overflow-hidden group">
+                            <div class="absolute inset-0 bg-akvo-cyan/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <h4 class="text-akvo-cyan font-bold uppercase tracking-widest text-sm mb-8">Ideal Conditions</h4>
+                            <div class="space-y-8">
+                                <div>
+                                    <div class="text-slate-400 text-xs uppercase font-bold mb-2">Temperature</div>
+                                    <div class="text-5xl font-bold text-white font-display">25°C - 32°C</div>
+                                </div>
+                                <div>
+                                    <div class="text-slate-400 text-xs uppercase font-bold mb-2">Humidity</div>
+                                    <div class="text-5xl font-bold text-white font-display">70% - 75%</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-1 glass-panel p-8 rounded-3xl border border-white/10 text-center text-slate-400">
+                            <h4 class="text-white font-bold uppercase tracking-widest text-sm mb-8">Operating Range</h4>
+                            <div class="space-y-8">
+                                <div>
+                                    <div class="text-slate-500 text-xs uppercase font-bold mb-2">Temperature</div>
+                                    <div class="text-4xl font-bold text-white font-display">18°C - 45°C</div>
+                                </div>
+                                <div>
+                                    <div class="text-slate-500 text-xs uppercase font-bold mb-2">Humidity</div>
+                                    <div class="text-4xl font-bold text-white font-display">35% - 40%</div>
+                                    <div class="text-xs text-slate-600 mt-1">Minimum Required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CALIBRATED WATER CALCULATOR -->
+    <section class="py-24 relative overflow-hidden" id="calculator">
+        <!-- Background Video -->
+        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover opacity-20 z-0 pointer-events-none filter blur-sm">
+            <source src="https://akvosphere.com/wp-content/uploads/2025/06/air-to-water-tech-akvo.mp4" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 bg-akvo-deep/90 z-0"></div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <span class="inline-block py-1 px-3 rounded-full bg-akvo-green/20 text-akvo-green text-xs font-bold uppercase tracking-wider mb-4 border border-akvo-green/20">Interactive Tool</span>
+            <h2 class="text-4xl md:text-6xl font-display font-bold text-white mb-6">Estimate Your Yield</h2>
+            <p class="text-slate-400 mb-12 max-w-xl mx-auto font-light">
+                Input your local weather conditions to see real-time generation estimates based on our thermodynamic algorithms.
+            </p>
+
+            <!-- Calculator Container -->
+            <div class="glass-panel p-8 md:p-12 border-akvo-cyan/20">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10 text-left">
+                    
+                    <!-- Temperature Input -->
+                    <div class="relative">
+                        <label class="block text-slate-400 text-xs font-bold uppercase mb-2">Temperature</label>
+                        <div class="relative">
+                            <select id="calc-temp" class="w-full bg-black/40 text-white font-bold text-lg focus:outline-none appearance-none py-4 px-4 rounded-xl border border-white/10 hover:border-akvo-cyan transition-colors cursor-pointer font-display">
+                                <option value="15">15°C (Cool)</option>
+                                <option value="20">20°C</option>
+                                <option value="25">25°C</option>
+                                <option value="30" selected>30°C (Warm)</option>
+                                <option value="35">35°C</option>
+                                <option value="40">40°C (Hot)</option>
+                                <option value="50">50°C</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Humidity Input -->
+                    <div class="relative">
+                        <label class="block text-slate-400 text-xs font-bold uppercase mb-2">Humidity</label>
+                        <div class="relative">
+                            <select id="calc-hum" class="w-full bg-black/40 text-white font-bold text-lg focus:outline-none appearance-none py-4 px-4 rounded-xl border border-white/10 hover:border-akvo-cyan transition-colors cursor-pointer font-display">
+                                <option value="30">30% (Dry)</option>
+                                <option value="40">40%</option>
+                                <option value="50">50%</option>
+                                <option value="60">60%</option>
+                                <option value="70">70%</option>
+                                <option value="80" selected>80% (Humid)</option>
+                                <option value="90">90%</option>
+                                <option value="100">100%</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Model Input -->
+                    <div class="relative">
+                        <label class="block text-slate-400 text-xs font-bold uppercase mb-2">Machine Model</label>
+                        <div class="relative">
+                            <select id="calc-model" class="w-full bg-black/40 text-white font-bold text-lg focus:outline-none appearance-none py-4 px-4 rounded-xl border border-white/10 hover:border-akvo-cyan transition-colors cursor-pointer font-display">
+                                <option value="50" data-name="Akvo Pod">Akvo Pod (50 L)</option>
+                                <option value="150" data-name="Akvo 55k">Akvo 55K (150 L)</option>
+                                <option value="500" data-name="Water Block">Water Block (500 L)</option>
+                                <option value="1000" data-name="Akvo 365K">Akvo 365K (1000 L)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button onclick="calculateWater()" class="btn-liquid px-16 py-4 rounded-full text-white font-bold tracking-widest text-sm uppercase">
+                        Calculate Potential
+                    </button>
+                </div>
+
+                <!-- Result Display -->
+                <div id="result-container" class="opacity-0 transition-opacity duration-500 mt-12 pt-8 border-t border-white/10">
+                    <p id="model-display-name" class="text-white text-lg font-light mb-1">Akvo Pod produces</p>
+                    <div class="flex items-baseline justify-center gap-2">
+                        <span id="result-value" class="text-6xl md:text-8xl font-bold text-[#4ade80] font-display tracking-tight drop-shadow-[0_0_20px_rgba(74,222,128,0.4)]">0</span>
+                        <span class="text-2xl md:text-4xl font-bold text-[#4ade80] font-display">Liters / Day</span>
+                    </div>
+                    <p id="condition-display" class="text-slate-400 text-sm font-light mt-2">at 80% RH & 30°C</p>
+                    
+                    <div class="mt-8">
+                        <a href="#contact" class="text-akvo-cyan border-b border-akvo-cyan/50 hover:border-akvo-cyan hover:text-white transition-colors pb-1 text-sm font-medium">Get a quote for this configuration &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            // Calibration Anchors (Real Data)
+            const anchors = [
+                { e: 0, f: 0 },
+                { e: 5.112, f: 0.159133 },  // Low Yield zone
+                { e: 19.002, f: 0.5711 },   
+                { e: 29.694, f: 0.8778 },   // Near rated capacity (30C/70%ish)
+                { e: 39.354, f: 1.14508 },  // High Yield zone
+                { e: 123.35, f: 3.43066 }   // Extreme tropical saturation
+            ];
+
+            function calculateVaporPressure(T, RH) {
+                const Es = 6.112 * Math.exp((17.67 * T) / (T + 243.5));
+                return Es * (RH / 100);
+            }
+
+            function getInterpolatedFactor(e) {
+                let lower = anchors[0];
+                let upper = anchors[anchors.length - 1];
+                for (let i = 0; i < anchors.length - 1; i++) {
+                    if (e >= anchors[i].e && e <= anchors[i+1].e) {
+                        lower = anchors[i];
+                        upper = anchors[i+1];
+                        break;
+                    }
+                }
+                if (e > upper.e) return upper.f;
+                const range = upper.e - lower.e;
+                if (range === 0) return lower.f;
+                const percent = (e - lower.e) / range;
+                return lower.f + (percent * (upper.f - lower.f));
+            }
+
+            function calculateWater() {
+                const tempSelect = document.getElementById('calc-temp');
+                const humSelect = document.getElementById('calc-hum');
+                const modelSelect = document.getElementById('calc-model');
+
+                const T = parseInt(tempSelect.value);
+                const RH = parseInt(humSelect.value);
+                const capacity = parseInt(modelSelect.value);
+                const modelName = modelSelect.options[modelSelect.selectedIndex].getAttribute('data-name');
+
+                const e = calculateVaporPressure(T, RH);
+                const factor = getInterpolatedFactor(e);
+                const result = capacity * factor;
+
+                const container = document.getElementById('result-container');
+                const valueDisplay = document.getElementById('result-value');
+                const modelDisplay = document.getElementById('model-display-name');
+                const conditionDisplay = document.getElementById('condition-display');
+                
+                container.classList.remove('opacity-0');
+                modelDisplay.innerText = `${modelName} produces approximately`;
+                conditionDisplay.innerText = `Based on: ${RH}% Humidity & ${T}°C Temperature`;
+                
+                let start = 0;
+                const duration = 1000;
+                const stepTime = 20;
+                const steps = duration / stepTime;
+                const increment = result / steps;
+                
+                if (window.calcTimer) clearInterval(window.calcTimer);
+
+                window.calcTimer = setInterval(() => {
+                    start += increment;
+                    if (start >= result) {
+                        start = result;
+                        clearInterval(window.calcTimer);
+                    }
+                    valueDisplay.innerText = start.toFixed(1); 
+                }, stepTime);
+            }
+        </script>
+    </section>
+
+    <!-- Product Showcase -->
+    <section class="py-24" id="products">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-akvo-cyan font-bold tracking-widest uppercase mb-2 text-glow">The Ecosystem</h2>
+                <h3 class="text-4xl md:text-6xl font-bold text-white font-display">Hardware Solutions</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                
+                <!-- Akvo Pod -->
+                <div class="glass-panel rounded-[2.5rem] overflow-hidden group hover:shadow-[0_0_40px_rgba(255,255,255,0.1)] transition-all duration-500">
+                    <div class="h-72 bg-slate-900/50 relative flex items-center justify-center overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-slate-800 to-akvo-deep opacity-60"></div>
+                        <i data-lucide="coffee" class="w-24 h-24 text-slate-600 opacity-50 relative z-10 group-hover:scale-110 group-hover:text-akvo-cyan transition-all duration-500"></i>
+                        <div class="absolute bottom-6 left-6 glass-panel px-4 py-1 rounded-full text-xs font-bold text-white border border-white/20">Home & Office</div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-3xl font-bold text-white mb-2 font-display">Akvo Pod</h3>
+                        <div class="flex items-center gap-3 mb-6 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                            <span class="bg-white/5 px-3 py-1 rounded-lg border border-white/10">50 LPD</span>
+                            <span class="bg-white/5 px-3 py-1 rounded-lg border border-white/10">1 KW</span>
+                        </div>
+                        <p class="text-slate-400 mb-8 text-base leading-relaxed font-light">Compact, quiet, and designed for residential use. No plumbing required—just plug and play.</p>
+                        <div class="flex items-center justify-between border-t border-white/10 pt-6">
+                            <span class="text-2xl font-bold text-white font-display">~₹1 Lakh</span>
+                            <button class="w-12 h-12 rounded-full bg-white/5 text-white flex items-center justify-center hover:bg-akvo-cyan hover:text-black transition-colors"><i data-lucide="arrow-right" class="w-5 h-5"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Water Block -->
+                <div class="glass-panel rounded-[2.5rem] overflow-hidden group hover:shadow-[0_0_60px_rgba(0,198,251,0.2)] transition-all duration-500 relative transform md:-translate-y-6 z-10 border-akvo-cyan/30">
+                    <div class="absolute top-4 right-4 bg-akvo-cyan text-akvo-deep text-xs font-bold px-4 py-2 rounded-full z-20 shadow-lg tracking-wider">FLAGSHIP</div>
+                    <div class="h-72 bg-slate-900/50 relative flex items-center justify-center overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-akvo-deep to-akvo-blue/30 opacity-80"></div>
+                        <i data-lucide="factory" class="w-24 h-24 text-slate-600 opacity-50 relative z-10 group-hover:scale-110 group-hover:text-akvo-cyan transition-all duration-500"></i>
+                        <div class="absolute bottom-6 left-6 glass-panel px-4 py-1 rounded-full text-xs font-bold text-white border border-white/20">Industrial</div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-3xl font-bold text-white mb-2 font-display">Water Block</h3>
+                        <div class="flex items-center gap-3 mb-6 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                            <span class="bg-white/5 px-3 py-1 rounded-lg border border-white/10">500 LPD</span>
+                            <span class="bg-white/5 px-3 py-1 rounded-lg border border-white/10">Modular</span>
+                        </div>
+                        <p class="text-slate-400 mb-8 text-base leading-relaxed font-light">Stackable design. Connect multiple blocks to scale up to 100,000+ liters. Dispenser agnostic.</p>
+                        <div class="flex items-center justify-between border-t border-white/10 pt-6">
+                            <span class="text-2xl font-bold text-white font-display">Custom Quote</span>
+                            <button class="w-12 h-12 rounded-full bg-akvo-cyan text-black flex items-center justify-center hover:bg-white transition-colors"><i data-lucide="arrow-right" class="w-5 h-5"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Helios -->
+                <div class="glass-panel rounded-[2.5rem] overflow-hidden group hover:shadow-[0_0_40px_rgba(255,255,255,0.1)] transition-all duration-500">
+                    <div class="h-72 bg-slate-900/50 relative flex items-center justify-center overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-slate-800 to-orange-900/40 opacity-60"></div>
+                        <i data-lucide="sun" class="w-24 h-24 text-orange-400 opacity-50 relative z-10 group-hover:scale-110 group-hover:text-orange-300 transition-all duration-500"></i>
+                        <div class="absolute bottom-6 left-6 glass-panel px-4 py-1 rounded-full text-xs font-bold text-white border border-white/20">Off-Grid</div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-3xl font-bold text-white mb-2 font-display">Akvo Helios</h3>
+                        <div class="flex items-center gap-3 mb-6 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                            <span class="bg-white/5 px-3 py-1 rounded-lg border border-white/10">18 LPD</span>
+                            <span class="bg-white/5 px-3 py-1 rounded-lg border border-white/10">Solar</span>
+                        </div>
+                        <p class="text-slate-400 mb-8 text-base leading-relaxed font-light">Powered by a 400W solar array. Includes 12V Lithium backup and rainwater harvesting.</p>
+                        <div class="flex items-center justify-between border-t border-white/10 pt-6">
+                            <span class="text-xl font-bold text-white font-display">Contact Us</span>
+                            <button class="w-12 h-12 rounded-full bg-white/5 text-white flex items-center justify-center hover:bg-akvo-cyan hover:text-black transition-colors"><i data-lucide="arrow-right" class="w-5 h-5"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- WoW Model Section -->
+    <section class="py-24 relative overflow-hidden" id="wow-model">
+        <div class="absolute inset-0 bg-akvo-cyan/5 backdrop-blur-3xl -z-10"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                <div class="lg:w-1/2">
+                    <div class="inline-block px-4 py-2 rounded-full border border-akvo-cyan text-akvo-cyan text-sm font-bold mb-6 tracking-wide btn-glow">DISRUPTIVE MODEL</div>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white font-display">Water-on-Want (WoW)</h2>
+                    <p class="text-xl text-slate-300 mb-8 leading-relaxed font-light">
+                        A disruptive "Water-as-a-Service" model. We install the infrastructure. You pay only for what you drink.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="glass-panel p-6 rounded-2xl flex items-start gap-4 border border-white/10 hover:border-akvo-cyan/30 transition-colors">
+                            <div class="bg-akvo-cyan/20 p-3 rounded-xl text-akvo-cyan">
+                                <i data-lucide="check-circle" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-white font-display">Zero CAPEX</h4>
+                                <p class="text-slate-400">No upfront investment for hardware. We own and maintain the assets.</p>
+                            </div>
+                        </div>
+                        <div class="glass-panel p-6 rounded-2xl flex items-start gap-4 border border-white/10 hover:border-akvo-cyan/30 transition-colors">
+                            <div class="bg-akvo-cyan/20 p-3 rounded-xl text-akvo-cyan">
+                                <i data-lucide="trending-down" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-white font-display">Drastic Cost Reduction</h4>
+                                <p class="text-slate-400">Pay ₹1.25 - ₹2.00 per liter, compared to ₹15-20 for bottled water.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:w-1/2 w-full">
+                    <div class="glass-panel-light rounded-[2.5rem] p-10 text-slate-100 shadow-2xl relative overflow-hidden border border-white/10">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-akvo-cyan rounded-full mix-blend-overlay filter blur-3xl opacity-30 animate-pulse"></div>
+                        
+                        <h3 class="text-2xl font-bold mb-8 text-center font-display">Cost Comparison</h3>
+                        
+                        <div class="space-y-8">
+                            <!-- Comparison Item -->
+                            <div>
+                                <div class="flex justify-between mb-2 font-medium">
+                                    <span class="text-slate-400">Bottled Water</span>
+                                    <span class="text-red-400 font-bold">₹20.00 / L</span>
+                                </div>
+                                <div class="w-full bg-slate-800 rounded-full h-4 overflow-hidden border border-white/5">
+                                    <div class="bg-red-500 h-full rounded-full shadow-[0_0_15px_rgba(239,68,68,0.5)]" style="width: 100%"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Comparison Item -->
+                            <div>
+                                <div class="flex justify-between mb-2 font-medium">
+                                    <span class="text-white font-bold">Akvo (WoW)</span>
+                                    <span class="text-emerald-400 font-bold text-xl">₹1.50 / L</span>
+                                </div>
+                                <div class="w-full bg-slate-800 rounded-full h-4 overflow-hidden border border-white/5">
+                                    <div class="bg-gradient-to-r from-emerald-400 to-green-500 h-full rounded-full shadow-[0_0_15px_rgba(52,211,153,0.5)]" style="width: 8%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-10 pt-8 border-t border-white/10 text-center">
+                            <p class="text-xs text-slate-400 mb-6 font-bold uppercase tracking-widest">Savings Potential: 90%+</p>
+                            <a href="#contact" class="block w-full py-4 bg-akvo-deep text-white font-bold rounded-xl hover:bg-akvo-cyan hover:text-black transition-all shadow-lg border border-white/10">Request Proposal</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies / Impact -->
+    <section class="py-24" id="impact">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-akvo-cyan font-bold tracking-widest uppercase mb-2 text-glow">Real World Impact</h2>
+                <h3 class="text-4xl md:text-5xl font-bold text-white font-display">Deployed Where It Matters</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Case Study 1 -->
+                <div class="glass-panel p-8 rounded-3xl border-l-4 border-l-orange-500 hover:bg-white/5 transition-colors border-t border-r border-b border-white/5 group">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="bg-orange-500/20 p-3 rounded-xl text-orange-400 group-hover:scale-110 transition-transform"><i data-lucide="flame" class="w-6 h-6"></i></div>
+                        <div>
+                            <h4 class="text-xl font-bold text-white font-display">Haldia Oil Refinery (IOCL)</h4>
+                            <div class="text-xs text-orange-400 font-bold uppercase tracking-wider">Industrial Sector</div>
+                        </div>
+                    </div>
+                    <p class="text-slate-300 leading-relaxed mb-4">
+                        <strong class="text-white">Challenge:</strong> Groundwater contaminated with toxic arsenic. Infrastructure overhaul unfeasible.
+                    </p>
+                    <div class="p-4 bg-white/5 rounded-xl border border-white/5">
+                        <strong class="text-akvo-cyan block mb-1 text-sm uppercase">The Akvo Solution</strong>
+                        <p class="text-sm text-slate-400">Decentralized 300 LPD machines deployed across the 300-acre site. Bypassed the aquifer entirely to provide safe water for 900 employees.</p>
+                    </div>
+                </div>
+
+                <!-- Case Study 2 -->
+                <div class="glass-panel p-8 rounded-3xl border-l-4 border-l-blue-500 hover:bg-white/5 transition-colors border-t border-r border-b border-white/5 group">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="bg-blue-500/20 p-3 rounded-xl text-blue-400 group-hover:scale-110 transition-transform"><i data-lucide="building-2" class="w-6 h-6"></i></div>
+                        <div>
+                            <h4 class="text-xl font-bold text-white font-display">Chennai Corporate HQ</h4>
+                            <div class="text-xs text-blue-400 font-bold uppercase tracking-wider">Commercial Real Estate</div>
+                        </div>
+                    </div>
+                    <p class="text-slate-300 leading-relaxed mb-4">
+                        <strong class="text-white">Challenge:</strong> "Day Zero" water scarcity and reliance on expensive water tanker mafias.
+                    </p>
+                    <div class="p-4 bg-white/5 rounded-xl border border-white/5">
+                        <strong class="text-akvo-cyan block mb-1 text-sm uppercase">The Akvo Solution</strong>
+                        <p class="text-sm text-slate-400">A massive rooftop grid of 60 Water Blocks generating 30,000 liters daily. Achieved absolute water autonomy for 5,000 employees.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Water Quality Report -->
+    <section class="py-24 relative" id="quality">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-akvo-cyan font-bold tracking-widest uppercase mb-3 text-glow">Lab Verified</h2>
+                <h3 class="text-4xl md:text-5xl font-bold text-white font-display">Exceeding Standards</h3>
+                <p class="text-slate-400 mt-4">Results from independent laboratory testing against IS 10500:2012 standards.</p>
+            </div>
+
+            <div class="glass-panel overflow-hidden rounded-3xl border border-white/10 shadow-2xl">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse tech-table">
+                        <thead>
+                            <tr class="bg-white/5 text-white border-b border-white/10">
+                                <th class="p-6 font-display font-bold text-sm uppercase tracking-wider text-slate-400">Parameter</th>
+                                <th class="p-6 font-display font-bold text-sm uppercase tracking-wider text-akvo-cyan">Akvo Result</th>
+                                <th class="p-6 font-display font-bold text-sm uppercase tracking-wider text-slate-500">WHO Limit</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-slate-300 text-sm font-medium">
+                            <tr>
+                                <td class="text-white">pH Level</td>
+                                <td class="text-akvo-cyan font-bold text-lg">7.6</td>
+                                <td>6.5 - 8.5</td>
+                            </tr>
+                            <tr>
+                                <td class="text-white">TDS (mg/l)</td>
+                                <td class="text-akvo-cyan font-bold text-lg">47</td>
+                                <td>500</td>
+                            </tr>
+                            <tr>
+                                <td class="text-white">Turbidity (NTU)</td>
+                                <td class="text-white">&lt; 1.0</td>
+                                <td>1.0</td>
+                            </tr>
+                            <tr>
+                                <td class="text-white">Iron (mg/l)</td>
+                                <td class="text-emerald-400 font-bold">BDL*</td>
+                                <td>0.3</td>
+                            </tr>
+                            <tr>
+                                <td class="text-white">Pathogens (E. Coli)</td>
+                                <td class="text-emerald-400 font-bold">Absent</td>
+                                <td>Absent</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="bg-black/40 p-4 text-center text-[10px] text-slate-600 uppercase tracking-widest font-bold">
+                    * BDL: Below Detection Limits
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <a href="#" class="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors border-b border-slate-600 hover:border-white pb-1 text-sm">
+                    <i data-lucide="file-text" class="w-4 h-4"></i>
+                    Download Full Lab Certification (PDF)
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black/80 backdrop-blur-xl border-t border-white/10 pt-20 pb-10" id="contact">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                
+                <!-- Brand -->
+                <div>
+                    <div class="mb-8 inline-block">
+                        <div class="bg-white p-4 rounded-2xl shadow-[0_0_40px_rgba(0,198,251,0.15)] border border-white/10 relative group">
+                            <div class="absolute inset-0 bg-gradient-to-br from-white via-slate-100 to-slate-200 rounded-2xl opacity-100"></div>
+                            <img src="image_f1dbe9.png" alt="Akvo" class="h-12 w-auto relative z-10 block">
+                        </div>
+                    </div>
+                    <p class="text-slate-400 mb-6 leading-relaxed font-light text-sm">
+                        De-commodifying water through atmospheric generation. Sustainable, scalable, and pure.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-akvo-cyan hover:text-black transition-all"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-akvo-cyan hover:text-black transition-all"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                    </div>
+                </div>
+
+                <!-- Locations 1 -->
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-white pb-2 font-display">Headquarters</h4>
+                    <address class="not-italic text-slate-400 text-sm leading-relaxed font-light">
+                        Diamond Prestige, 41A,<br>
+                        AJC Bose Road,<br>
+                        Kolkata, West Bengal 700017
+                    </address>
+                </div>
+
+                <!-- Locations 2 -->
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-white pb-2 font-display">Factory</h4>
+                    <address class="not-italic text-slate-400 text-sm leading-relaxed font-light">
+                        Bombay Road NH 6,<br>
+                        Ankurhati Checkpost,<br>
+                        Howrah, West Bengal 711302
+                    </address>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-white pb-2 font-display">Contact</h4>
+                    <ul class="space-y-4 text-slate-400 text-sm font-light">
+                        <li class="flex items-center gap-3 hover:text-akvo-cyan transition-colors cursor-pointer">
+                            <i data-lucide="mail" class="w-4 h-4 text-akvo-cyan"></i>
+                            <a href="mailto:info@akvosphere.com">info@akvosphere.com</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="phone" class="w-4 h-4 text-akvo-cyan"></i>
+                            <span>+91 89295 07444</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-slate-600 text-xs">© 2026 Akvo Atmospheric Water Systems Pvt. Ltd.</p>
+                <div class="flex space-x-6 text-xs text-slate-600">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
